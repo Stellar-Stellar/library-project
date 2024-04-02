@@ -1,3 +1,11 @@
-#book-title {
-    color: green
+#shelf-body {
+    display:flex;
+}
+
+#shelf-top {
+    display:flex;
+}
+
+img {
+    height: 200px;
 }
