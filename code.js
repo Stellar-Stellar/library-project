@@ -2,6 +2,10 @@
 let reading_stat;
 const myLibrary = [];
 
+var user_title = document.getElementById("book-title").value;
+const user_author = document.querySelector('#book-author')
+const user_pages = document.querySelector('#pages')
+const user_reading_status = document.querySelector('#reading-status')
 const submit_btn = document.querySelector("#submit-button")
 
 function Book(title, author, pages, reading_status){
@@ -13,7 +17,6 @@ function Book(title, author, pages, reading_status){
         return(title + ", " + author + ", " + pages + ", " + reading_status)
     };
 }
-
 
 //Pushes the book's information into the myLibrary Array
 function addBookToLibrary(input) {
@@ -28,23 +31,39 @@ function displayBooks(){
     }
 }
 
+//Calls the createCard function each time the submit button is clicked
 submit_btn.addEventListener('click', () => {
     createCard();
 })
 
+//Creates a "card" for each book which contains the book's title, author, page count, reading status and an image if the user selects one
 function createCard() {
     const newCard = document.createElement("div");
-    newCard.setAttribute("id", "book-card")
+    newCard.setAttribute("id", "book-card");
 
     const newImage = document.createElement("img");
-    newImage.setAttribute("id", "book-image")
+    newImage.setAttribute("id", "book-image");
 
     const newTitle = document.createElement("div");
-    newTitle = setAttribute("id", "book-title")
+    const newTitleContent = user_title.value;
+    newTitle.setAttribute("id", "book-title");
+
+    const newAuthor = document.createElement("div");
+    newAuthor.setAttribute("id", "book-author");
+
+    const newPages = document.createElement("div");
+    newPages.setAttribute("id", "book-pages");
+
+    const newReadingStatus = document.createElement("div");
+    newReadingStatus.setAttribute("id", "book-reading-status")
+
     const cardContent = document.createTextNode(myLibrary[0])
     newCard.appendChild(cardContent)
+    
     const formID = document.getElementById("form-container")
     document.body.insertBefore(newCard, formID)
+    document.body.insertBefore(newTitle, formID)
+    
 }
 
 const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", "295 pages", "not read yet");
@@ -54,4 +73,6 @@ addBookToLibrary(theHobbit);
 addBookToLibrary(theLastWish);
 addBookToLibrary(theCallofCthulu);
 displayBooks();
+
+//Having trouble reading data from form
 
