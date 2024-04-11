@@ -15,7 +15,6 @@ function Book(title, author, pages, reading_status){
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.reading_status = reading_status
     this.info = function(){
         return(title + ", " + author + ", " + pages + ", " + reading_status)
     };
@@ -26,30 +25,44 @@ function addBookToLibrary(input) {
     myLibrary.push(input.info())
 }
 
-//Creates a new div and inserts onto the document, then runs a loop to add all the book's information to the text
+//Creates a new div and inserts onto the document, then runs a loop to add all the book's information to the text.
+//Also creates the remove button, which when clicked, will remove the corresponding book from both the page and the array
 function displayBooks(){
     const bookInfo = document.createElement("div");
     bookInfo.setAttribute("id", "book-info");
-    const removeBtn = document.createElement("button")
-    removeBtn.setAttribute("id", "remove-button")
-    removeBtn.innerText = "Remove"
-    document.body.insertBefore(bookInfo, formID)
-    document.body.insertBefore(removeBtn, formID)
+    
+    const removeBtn = document.createElement("button");
+    removeBtn.setAttribute("id", "remove-button");
+    removeBtn.innerText = "Remove";
+
+    const readBtn = document.createElement("button");
+    readBtn.setAttribute("id", "read-button");
+    readBtn.innerText = "Change read status";
+
+    document.body.insertBefore(bookInfo, formID);
+    document.body.insertBefore(removeBtn, formID);
+    document.body.insertBefore(readBtn, formID);
     for(i = 0; i < myLibrary.length; i++) {
         bookInfo.innerText = myLibrary[i]
+        bookInfo.setAttribute("data-index", i)     
     }
+
+
+
+    removeBtn.addEventListener('click', () => {
+        bookInfo.remove();
+        removeBtn.remove();
+        myLibrary.splice("data-index", 1);        
+    })
+
 
 }
 
 //
 submit_btn.addEventListener('click', () => {
-    const newBook = new Book(user_title.value, user_author.value, user_pages.value, user_reading_status.value);
+    const newBook = new Book(user_title.value, user_author.value, user_pages.value, reading_stat);
     addBookToLibrary(newBook)
     displayBooks();
-})
-
-removeBtn.addEventListener('click', () => {
-    
 })
 
 //Remove button is next on the list
